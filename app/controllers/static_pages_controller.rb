@@ -8,4 +8,8 @@ class StaticPagesController < ApplicationController
   def about
     # implement later
   end
+  
+  def contact
+    # implement later
+  end
 end
