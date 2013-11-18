@@ -1,10 +1,18 @@
 Chapter2App::Application.routes.draw do
   
-  # Static Page Routing
-  get "static_pages/home"
-  get "static_pages/help"
-  get "static_pages/about"
-  get "static_pages/contact"
+  # temporary to allow routing to work
+  get "users/new"
+  
+  # Home Page Routing
+  root 'static_pages#home'
+  
+  # Static Page Routing to "static_pages" controller
+  match '/help',    to: 'static_pages#help',    via: 'get'
+  match '/about',   to: 'static_pages#about',   via: 'get'
+  match '/contact', to: 'static_pages#contact', via: 'get'
+  
+  # signup URL for new users
+  match "/signup",  to: 'users#new',            via: 'get'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
