@@ -12,6 +12,16 @@ Chapter2App::Application.routes.draw do
   # DELETE        /users/1      destroy   user_path(user)       delete user
   resources :users
   
+  # routing for sessions, note only new, create, destroy actions
+  # HTTP Request  URL           Action    Named Route           Purpose
+  # ------------  ---------     --------- --------------------  --------------
+  # GET           /signin       new       signin_path           page for a new session (signin)
+  # POST          /sessions     create    sessions_path         create a new session
+  # DELETE        /signout      destroy   signout_path          delete a session (sign out)
+  resources :sessions, only: [:new, :create, :destroy]
+  match '/signin',  to: 'sessions#new',         via: 'get'
+  match '/signout', to: 'sessions#destroy',     via: 'delete'
+  
   # Home Page Routing
   root 'static_pages#home'
   

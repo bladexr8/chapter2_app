@@ -10,7 +10,8 @@ class UsersController < ApplicationController
   def create
     # use custom initialization hash as a security measure
     @user = User.new(user_params)
-    if @user.save                   # not final implementation!
+    if @user.save
+      sign_in @user
       flash[:success] = "Welcome to the Force E-Commerce App!"
       # redirect user to their profile page
       redirect_to @user
