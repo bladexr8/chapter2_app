@@ -9,6 +9,10 @@ gem 'railties', '4.0.0'
 # add Twitter Bootstrap support to application
 gem 'bootstrap-sass', '2.3.2.0'
 
+# gems to support paging with Twitter Bootstrap
+gem 'will_paginate', '3.0.4'
+gem 'bootstrap-will_paginate', '0.0.9'
+
 # support to encrypt users passwords
 gem 'bcrypt-ruby', '3.0.1'
 
@@ -37,6 +41,9 @@ gem 'turbolinks', '1.1.1'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '1.0.2'
+
+# faker gem to help mock up user accounts
+gem 'faker', '1.1.2'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

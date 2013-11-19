@@ -37,4 +37,23 @@ module SessionsHelper
     @current_user ||= User.find_by(remember_token: remember_token)
   end
   
+  # check that the logged in user matches the current user in the session
+  def current_user?(user)
+    user == current_user
+  end
+  
+  # code to support friendly forwarding after a user logs in
+  
+  # store the location to redirect the user to after they
+  # are authenticated
+  def store_location
+    session[:return_to] = request.url if request.get?
+  end
+  
+  # perform the redirection after user is authenticated
+  def redirect_back_or(default)
+    redirect_to(session[:return_to] || default)
+    session.delete(:return_to)
+  end
+  
 end
