@@ -34,8 +34,8 @@ Chapter2App::Application.routes.draw do
   match "/signup",  to: 'users#new',            via: 'get'
   
   # routing for Salesforce powered Product Catalogue
-  root :to => "products#index"
-  resources :products
+  match '/products', to: 'products#index',      via: 'get'
+  
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
