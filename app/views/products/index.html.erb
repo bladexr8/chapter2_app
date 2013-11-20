@@ -1,0 +1,8 @@
+<% provide(:title, 'Products') %>
+<h1>Product Listing</h1>
+
+<ul>
+	<% @products.each do |product| %>
+		<li><%= product.Item_Name__c %></li>
+	<% end %>
+</ul>
