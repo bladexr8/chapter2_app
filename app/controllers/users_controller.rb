@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   def index
     # only administrators can access this page
     if admin_user
-      @users = User.paginate(page: params[:page], per_page: 10)
+      @users = User.paginate(page: params[:page], per_page: 25)
     else
       flash[:error] = "You do not have administrative access."
       redirect_to(root_url)

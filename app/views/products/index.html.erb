@@ -1,8 +1,33 @@
 <% provide(:title, 'Products') %>
 <h1>Product Listing</h1>
 
-<ul>
-	<% @products.each do |product| %>
-		<li><%= product.Item_Name__c %></li>
+<%= will_paginate @products_list %>
+
+<table class="table table-hover">
+	<tr>
+		<th>Item Name</th>
+		<th>Capacity (ci)</th>
+		<th>Induction</th>
+		<th>Power (hp)</th>
+		<th>Torque (ft lb)</th>
+		<th>Price</th>
+		<th>Actions</th>
+	</tr>
+
+
+	<% @products_list.each do |product| %>
+	
+		<tr>
+			<td><%= product.Item_Name__c %></td>
+			<td><%= product.Capacity__c %></td>
+			<td><%= product.Induction__c %></td>
+			<td><%= product.Power_Output__c %></td>
+			<td><%= product.Torque__c %></td>
+			<td><%= product.Unit_Price__c %></td>
+			<td>Buy!</td>
+		</tr>
+			
 	<% end %>
-</ul>
+</table>
+
+<%= will_paginate @products_list %>	
