@@ -3,15 +3,24 @@
 
 <%= will_paginate @products_list %>
 
+<!-- get the current page so we can pass it to the cart line item controller -->
+<% if params[:page].nil? then 
+      curr_page = 1 
+  else 
+	  curr_page = params[:page] 
+  end
+  logger.debug "***curr_page = #{curr_page}"
+%>
+
 <table class="table table-hover">
 	<tr>
 		<th>Item Name</th>
-		<th>Capacity (ci)</th>
-		<th>Induction</th>
-		<th>Power (hp)</th>
-		<th>Torque (ft lb)</th>
-		<th>Price</th>
-		<th>Actions</th>
+		<th style="text-align: center;">Capacity (ci)</th>
+		<th style="text-align: center;">Induction</th>
+		<th style="text-align: center;">Power (hp)</th>
+		<th style="text-align: center;">Torque (ft lb)</th>
+		<th style="text-align: center;">Price</th>
+		<th></th>
 	</tr>
 
 
@@ -19,12 +28,12 @@
 	
 		<tr>
 			<td><%= product.Item_Name__c %></td>
-			<td><%= product.Capacity__c %></td>
-			<td><%= product.Induction__c %></td>
-			<td><%= product.Power_Output__c %></td>
-			<td><%= product.Torque__c %></td>
-			<td><%= product.Unit_Price__c %></td>
-			<td>Buy!</td>
+			<td style="text-align: center;"><%= number_with_precision(product.Capacity__c, precision: 0) %></td>
+			<td style="text-align: center;"><%= product.Induction__c %></td>
+			<td style="text-align: center;"><%= number_with_precision(product.Power_Output__c, precision: 0) %></td>
+			<td style="text-align: center;"><%= number_with_precision(product.Torque__c, precision: 0) %></td>
+			<td style="text-align: center;"><%= number_to_currency(product.Unit_Price__c) %></td>
+			<td><%= link_to '<i class="icon-plus-sign" title="Add to Cart">'.html_safe, cart_line_items_path(product_id: product.Id, price: product.Unit_Price__c, desc: product.Item_Name__c,  current_page: curr_page), method: :post %></i></td>
 		</tr>
 			
 	<% end %>

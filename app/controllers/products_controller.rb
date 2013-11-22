@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
     # Note that this code works because @products is of
     # type Databasedotcom::Collection which is a subclass
     # of Ruby "Array"
-    @products_list = @products.paginate(page: params[:page], per_page: 10)
+    @products_list = @products.paginate(page: params[:page], per_page: 5)
     # uncomment to print debug information
     #print_product_list_debug
   end

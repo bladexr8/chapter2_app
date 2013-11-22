@@ -36,6 +36,15 @@ Chapter2App::Application.routes.draw do
   # routing for Salesforce powered Product Catalogue
   match '/products', to: 'products#index',      via: 'get'
   
+  # routing for Cart Line Items
+  # TO DO: limit to only routes required (as per sessions)
+  resources :cart_line_items
+  
+  # routing for Cart
+  # TO DO: limit to only routes required (as per sessions)
+  resources :cart
+
+  
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
