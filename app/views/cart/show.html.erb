@@ -10,19 +10,30 @@
 			<th style="text-align: center;">Price</th>
 			<th style="text-align: center;">Total</th>
 			<th></th>
-		</tr>
-	
-	
+		</tr>	
+		
 		<% @cart.cart_line_items.each do |item| %>
 
 			<tr>
 				<td><%= item.name %></td>
-				<td style="text-align: center;"><%= item.quantity %></td>
+				
+				<td style="text-align: center;">
+					<%= item.quantity %> 
+				</td>
+				
 				<td style="text-align: center;"><%= number_to_currency(item.price) %></td>
 				<td style="text-align: center;"><%= number_to_currency(item.total_price) %></td>
-				<td></i>&nbsp;<i class="icon-pencil" title="Edit"></i>&nbsp;&nbsp;<i class="icon-remove" title="Remove"></td>
+				<td></i>&nbsp;<%= link_to '<i class="icon-pencil" title="Adjust Item Quantity"></i>'.html_safe, edit_cart_line_item_path(line_id: item.id) %>
+					&nbsp;&nbsp;
+					<%= link_to '<i class="icon-remove" title="Remove Item from Cart"></i>'.html_safe, cart_line_item_path(line_id: item.id), method: :delete %>
+				</td>
 			</tr>
 
 		<% end %>
 
 	</table>
+	<p>
+		<%= button_to 'Empty Cart', @cart, method: :delete,
+				data: {confirm: 'Are you sure you want to empty your Cart?'},
+				class: "btn btn-danger" %>
+	</p>

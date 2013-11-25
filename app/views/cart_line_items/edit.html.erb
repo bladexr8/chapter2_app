@@ -1,0 +1,15 @@
+<h1>Adjust Quantity</h1>
+	<p>
+		Please adjust quantity for <strong><%= @cart_line_item.name %></strong>
+		
+		<%= form_for(@cart_line_item) do |f| %>
+		
+			<%= f.label :quantity %>
+			<%= f.text_field :quantity, class: "input-small",
+				 	style: "text-align: center;"%><br />
+				
+			<%= f.submit "Save changes", class: "btn btn-primary", line_id: "1" %>
+			<%= link_to 'Cancel', cart_path(session[:cart_id]) %>
+		
+		<% end%>
+	</p>

@@ -1,16 +1,16 @@
 class CartLineItemsController < ApplicationController
-  # include utilities to locate a cart (or create one)
+  # include utilities concern to locate a cart (or create one)
   # for the current session
   include CurrentCart
   before_action :set_cart, only: [:create]
-  before_action :set_line_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_line_item, only: [:edit, :destroy]
+  
+  # error handler for when a cart line item is requested that doesn't exist
+  rescue_from ActiveRecord::RecordNotFound, with: :no_cart_line_item_found
   
   # create a new CartLineItem when "Add to Cart" link clicked
   def create
-    logger.debug "***Creating a New Cart Line Item for #{params[:product_id]}, #{params[:desc]}, price #{params[:price]}"
-    logger.debug "***Current Cart id Is - #{@cart.id}"
-    logger.debug "***Current Products List Page Is - #{params[:current_page]}"
-    # create or increment existingvCartLineItem
+    # create or increment existing CartLineItem
     @line_item = add_line_item
     # save CartLineItem and create flash message indicating result
     if @line_item.save
@@ -45,5 +45,59 @@ class CartLineItemsController < ApplicationController
     end
     return current_item    
   end
+  
+  # destroy a line item
+  def destroy
+    # make sure user is accessing cart currently
+    # held in their session
+    if params[:id].to_i == session[:cart_id].to_i
+      logger.debug "***Destroying line item #{params[:line_id]}..."
+      @cart_line_item.destroy
+      flash[:success] = "Item successfully removed from Cart"
+      redirect_to cart_path(session[:cart_id])
+    else
+      logger.debug "***Cart id Supplied does NOT match session cart id"
+      no_cart_line_item_found
+    end
+  end
+  
+  # edit a line item
+  def edit
+    # make sure user is accessing cart currently
+    # held in their session
+    if params[:id].to_i == session[:cart_id].to_i
+      logger.debug "***Editing line item #{params[:line_id]}..."
+    else
+      logger.debug "***Cart id Supplied does NOT match session cart id"
+      no_cart_line_item_found
+    end       
+  end
+  
+  # update line item in database after it is edited
+  def update
+    logger.debug "***Updating Line Item #{params[:id]} quantity to #{params[:cart_line_item][:quantity]}"
+    @cart_line_item = CartLineItem.find(params[:id])
+    @cart_line_item.quantity = params[:cart_line_item][:quantity]
+    if @cart_line_item.save
+      flash[:success] = "Cart Item successfully updated"
+    else
+      flash[:error] = "Cart Item update unsuccessful"
+    end
+    redirect_to cart_path(session[:cart_id])
+  end
+  
+  private
+   
+  def set_line_item
+    # find line item passed in
+    @cart_line_item = CartLineItem.find(params[:line_id])
+  end
+  
+  def no_cart_line_item_found
+    logger.error "***Illegal attempt to access cart line item #{params[:line_id]} detected..."
+    flash[:error] = "You have tried to access a Cart line item illegally or it doesn't exist!"
+    redirect_to products_path
+  end
+  
     
 end

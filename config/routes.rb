@@ -38,11 +38,11 @@ Chapter2App::Application.routes.draw do
   
   # routing for Cart Line Items
   # TO DO: limit to only routes required (as per sessions)
-  resources :cart_line_items
+  resources :cart_line_items, only: [:create, :destroy, :edit, :update]
   
   # routing for Cart
   # TO DO: limit to only routes required (as per sessions)
-  resources :cart
+  resources :cart, only: [:show, :destroy]
 
   
   

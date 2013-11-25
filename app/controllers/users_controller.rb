@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   
+  # include utilies for checking user authentication
+  include CurrentUser
+  
   # a before action filter to ensure that user is signed
   # in before the "edit" and "update" actions
   before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
@@ -97,25 +100,25 @@ class UsersController < ApplicationController
   # Before filters
   
   # check that the user is logged in
-  def signed_in_user
-    unless signed_in?
-      store_location
-      redirect_to signin_url, notice: "Please sign in."
-    end
-  end
+  #def signed_in_user
+  #  unless signed_in?
+  #    store_location
+  #    redirect_to signin_url, notice: "Please sign in."
+  #  end
+  #end
   
   # check that the logged in user matches the current user in the session
   # if admin, allow them to edit any user
-  def correct_user
-    @user = User.find(params[:id])
-    redirect_to(root_url) unless current_user?(@user) || admin_user
-  end
+  #def correct_user
+  #  @user = User.find(params[:id])
+  #  redirect_to(root_url) unless current_user?(@user) || admin_user
+  #end
   
   # check that the current user is an admin user
-  def admin_user
+  #def admin_user
       # get current user for session and check if they are an administrator
-      check_admin_user = current_user
-      return check_admin_user.admin?
-  end
+  #    check_admin_user = current_user
+  #    return check_admin_user.admin?
+  #end
   
 end
