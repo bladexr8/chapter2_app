@@ -90,8 +90,8 @@ class SfOrderController < ApplicationController
       end
       
       # destroy the cart and clear session cart identifier
-      #@cart.destroy
-      #session[:cart_id] = nil
+      @cart.destroy
+      session[:cart_id] = nil
 
 
     rescue Exception => saveError

@@ -6,6 +6,54 @@
 				<%= gravatar_for @user %>
 				<%= @user.name %>
 			</h1>
+			<p>
+				<%= @user.email%>
+			</p>
+			<p>
+				<%= @user.address %>
+			</p>
 		</section>
 	</aside>
+	<div class="span8"></div>
+</div>
+<div class="row">
+	<h2>Order Summary</h2>
+	
+	<%= will_paginate @customerOrderList %>
+
+	<table class="table table-hover">
+		<tr>
+			<th style="text-align: center;">Order Reference</th>
+			<th style="text-align: center;">Total</th>
+			<th style="text-align: center;">Order Date</th>
+			<th style="text-align: center;">Planned Delivery</th>
+			<th style="text-align: center;">Delivered?</th>
+			<th style="text-align: center;">Actions</th>
+		</tr>	
+	
+	<% @customerOrderList.each do |order| %>
+			
+			<tr>
+				<td style="text-align: center;"><%= order.Name %></td>
+				<td style="text-align: center;"><%= number_to_currency(order.Grand_Total__c) %></td>
+				<td style="text-align: center;"><%= format_order_date(order.CreatedDate) %></td>
+				<td style="text-align: center;"><%= format_order_date(order.Planned_Delivery_Date__c) %></td>
+				<% if order.Delivered__c == false %>
+					<td style="text-align: center;"><i class="icon-remove" title="Not Delivered"></i></td>
+				<% else %>
+					<td style="text-align: center;"><i class="icon-ok" title="Delivered"></i></td>
+				<% end %>
+				<td style="text-align: center;"><%= mail_to "admin@forcecommerce.com", 
+					'<i class="icon-flag" title="Email Enquiry"></i>'.html_safe, 
+					subject: "Enquiry - #{order.Name} "%>
+				</td>
+			</tr>
+			
+		
+	<% end %>
+	
+	</table>	
+	
+	<%= will_paginate @customerOrderList %>
+		
 </div>

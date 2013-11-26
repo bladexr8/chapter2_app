@@ -1,15 +1,19 @@
 class UsersController < ApplicationController
   
+  require 'will_paginate/array'
+  
   # include utilies for checking user authentication
   include CurrentUser
   
+  #include CustomerOrder
+  
   # a before action filter to ensure that user is signed
   # in before the "edit" and "update" actions
-  before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :signed_in_user, only: [:index, :edit, :update, :destroy, :show]
   
-  # a before action filter to ensure that user can only edit
+  # a before action filter to ensure that user can only see/edit
   # their own details
-  before_action :correct_user, only: [:edit, :update]
+  before_action :correct_user, only: [:edit, :update, :show]
   
   # show users index page using pagination
   # paginate method (from pagination support gems, refer to Gemfile)
@@ -46,7 +50,12 @@ class UsersController < ApplicationController
   
   # show the user profile page
   def show
+    # find logged in user
     @user = User.find(params[:id])
+    # get summary of Order from Salesforce by calling utility class in config/initializers folder
+    @customerOrderUtility = CustomerUtility::CustomerOrder.new
+    @customerOrderSummary = @customerOrderUtility.getCustomerOrderSummary(@user.id)
+    @customerOrderList = @customerOrderSummary.paginate(page: params[:page], per_page: 5)
   end
   
   # display page to edit logged in user
@@ -96,29 +105,5 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :address,
                                   :password_confirmation)
   end
-  
-  # Before filters
-  
-  # check that the user is logged in
-  #def signed_in_user
-  #  unless signed_in?
-  #    store_location
-  #    redirect_to signin_url, notice: "Please sign in."
-  #  end
-  #end
-  
-  # check that the logged in user matches the current user in the session
-  # if admin, allow them to edit any user
-  #def correct_user
-  #  @user = User.find(params[:id])
-  #  redirect_to(root_url) unless current_user?(@user) || admin_user
-  #end
-  
-  # check that the current user is an admin user
-  #def admin_user
-      # get current user for session and check if they are an administrator
-  #    check_admin_user = current_user
-  #    return check_admin_user.admin?
-  #end
-  
+    
 end
