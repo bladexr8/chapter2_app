@@ -63,6 +63,7 @@ class SfOrderController < ApplicationController
     @order.Customer_Email__c = params[:Customer_Email__c]
     @order.Customer_Address__c = params[:Customer_Address__c]
     @order.Comments__c = params[:Comments__c]
+    @order.Channel__c = "External"
     
     # hacks required to get order into sandbox app - DO NOT include in final code
     @order.Delivered__c = false

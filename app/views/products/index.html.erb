@@ -28,12 +28,19 @@
 	
 		<tr>
 			<td><%= product.Item_Name__c %></td>
-			<td style="text-align: center;"><%= number_with_precision(product.Capacity__c, precision: 0) %></td>
-			<td style="text-align: center;"><%= product.Induction__c %></td>
-			<td style="text-align: center;"><%= number_with_precision(product.Power_Output__c, precision: 0) %></td>
-			<td style="text-align: center;"><%= number_with_precision(product.Torque__c, precision: 0) %></td>
-			<td style="text-align: center;"><%= number_to_currency(product.Unit_Price__c) %></td>
-			<td><%= link_to '<i class="icon-plus-sign" title="Add to Cart"></i>'.html_safe, cart_line_items_path(product_id: product.Id, price: product.Unit_Price__c, desc: product.Item_Name__c,  current_page: curr_page), method: :post %></i></td>
+			<td style="text-align: center;">
+				<%= number_with_precision(product.Capacity__c, precision: 0) %></td>
+			<td style="text-align: center;">
+				<%= product.Induction__c %></td>
+			<td style="text-align: center;">
+				<%= number_with_precision(product.Power_Output__c, precision: 0) %></td>
+			<td style="text-align: center;">
+				<%= number_with_precision(product.Torque__c, precision: 0) %></td>
+			<td style="text-align: center;">
+				<%= number_to_currency(product.Unit_Price__c) %></td>
+			<td><%= link_to '<i class="icon-plus-sign" title="Add to Cart"></i>'.html_safe,
+				 cart_line_items_path(product_id: product.Id, price: product.Unit_Price__c, 
+				 desc: product.Item_Name__c,  current_page: curr_page), method: :post %></i></td>
 		</tr>
 			
 	<% end %>

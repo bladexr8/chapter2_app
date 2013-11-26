@@ -40,8 +40,10 @@
 					<%= item.quantity %> 
 				</td>
 				
-				<td style="text-align: center;"><%= number_to_currency(item.price) %></td>
-				<td style="text-align: center;"><%= number_to_currency(item.total_price) %></td>
+				<td style="text-align: center;">
+					<%= number_to_currency(item.price) %></td>
+				<td style="text-align: center;">
+					<%= number_to_currency(item.total_price) %></td>
 			</tr>
 
 		<% end %> <!-- cart line items loop -->
