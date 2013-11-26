@@ -1,5 +1,7 @@
 Chapter2App::Application.routes.draw do
     
+  #get "sf_order/new"
+  #get "sf_order/destroy"
   # enable routing based on users resource
   # HTTP Request  URL           Action    Named Route           Purpose
   # ------------  ---------     --------- --------------------  --------------
@@ -37,12 +39,13 @@ Chapter2App::Application.routes.draw do
   match '/products', to: 'products#index',      via: 'get'
   
   # routing for Cart Line Items
-  # TO DO: limit to only routes required (as per sessions)
   resources :cart_line_items, only: [:create, :destroy, :edit, :update]
   
   # routing for Cart
-  # TO DO: limit to only routes required (as per sessions)
   resources :cart, only: [:show, :destroy]
+  
+  # routing for Order
+  resources :sf_order, only: [:new, :create]
 
   
   

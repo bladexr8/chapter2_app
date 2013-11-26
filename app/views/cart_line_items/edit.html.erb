@@ -8,8 +8,8 @@
 			<%= f.text_field :quantity, class: "input-small",
 				 	style: "text-align: center;"%><br />
 				
-			<%= f.submit "Save changes", class: "btn btn-primary", line_id: "1" %>
-			<%= link_to 'Cancel', cart_path(session[:cart_id]) %>
+			<%= f.submit "Save", class: "btn btn-success" %>
+			<%= link_to "Cancel", cart_path(session[:cart_id]), class: "btn btn-danger" %>
 		
 		<% end%>
 	</p>

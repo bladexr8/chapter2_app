@@ -1,6 +1,6 @@
 <h1>My Cart</h1>
 	<p>
-		Your Shopping Cart contents are currently worth <strong><%= number_to_currency(@cart.total_price) %></strong>
+		Your Shopping Cart contents are currently worth <strong><%= number_to_currency(@cart.total_price) %></strong><br /> 
 	</p>
 	
 	<table class="table table-hover">
@@ -32,8 +32,10 @@
 		<% end %>
 
 	</table>
-	<p>
-		<%= button_to 'Empty Cart', @cart, method: :delete,
+		
+	<div class="form-inline">
+		<%= link_to '<i class="icon-ok icon-white"></i>Checkout'.html_safe, new_sf_order_path(cart_id: @cart.id), class: "btn btn-success", method: :get %>
+		<%= link_to '<i class="icon-remove icon-white"></i>Empty Cart'.html_safe, @cart, method: :delete,
 				data: {confirm: 'Are you sure you want to empty your Cart?'},
 				class: "btn btn-danger" %>
-	</p>
+	</div>

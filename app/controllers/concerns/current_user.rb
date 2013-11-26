@@ -9,12 +9,14 @@ module CurrentUser
       store_location
       redirect_to signin_url, notice: "Please sign in."
     end
+    logger.debug "***signed_in_user - Detected signed in user..."
   end
   
   # check that the logged in user matches the current user in the session
   # if admin, allow them to edit any user
   def correct_user
     @user = User.find(params[:id])
+    logger.debug "***correct_user - Detected User - #{@user.name}"
     redirect_to(root_url) unless current_user?(@user) || admin_user
   end
   
