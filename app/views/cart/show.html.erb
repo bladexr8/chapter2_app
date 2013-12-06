@@ -24,11 +24,11 @@
 				
 				<td style="text-align: center;"><%= number_to_currency(item.price) %></td>
 				<td style="text-align: center;"><%= number_to_currency(item.total_price) %></td>
-				<td>&nbsp;<%= link_to '<i class="icon-pencil" title="Adjust Item Quantity"></i>'.html_safe,
-					 edit_cart_line_item_path(line_id: item.id) %>
+				<td>&nbsp;<%= link_to 'Edit'.html_safe,
+					 edit_cart_line_item_path(line_id: item.id), title: 'Adjust Quantity of Cart Item' %>
 					&nbsp;&nbsp;
-					<%= link_to '<i class="icon-remove" title="Remove Item from Cart"></i>'.html_safe,
-					 cart_line_item_path(line_id: item.id), method: :delete %>
+					<%= link_to 'Remove'.html_safe,
+					 cart_line_item_path(line_id: item.id), method: :delete, title: 'Remove Item from Cart' %>
 				</td>
 			</tr>
 
@@ -37,9 +37,9 @@
 	</table>
 		
 	<div class="form-inline">
-		<%= link_to '<i class="icon-ok icon-white"></i>Checkout'.html_safe, 
+		<%= link_to 'Checkout', 
 			new_sf_order_path(cart_id: @cart.id), class: "btn btn-success", method: :get %>
-		<%= link_to '<i class="icon-remove icon-white"></i>Empty Cart'.html_safe, @cart, method: :delete,
+		<%= link_to 'Empty Cart', @cart, method: :delete,
 				data: {confirm: 'Are you sure you want to empty your Cart?'},
 				class: "btn btn-danger" %>
 	</div>

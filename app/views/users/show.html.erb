@@ -39,13 +39,14 @@
 				<td style="text-align: center;"><%= format_order_date(order.CreatedDate) %></td>
 				<td style="text-align: center;"><%= format_order_date(order.Planned_Delivery_Date__c) %></td>
 				<% if order.Delivered__c == false %>
-					<td style="text-align: center;"><i class="icon-remove" title="Not Delivered"></i></td>
+					<td style="text-align: center;">No</td>
 				<% else %>
-					<td style="text-align: center;"><i class="icon-ok" title="Delivered"></i></td>
+					<td style="text-align: center;">Yes</i></td>
 				<% end %>
 				<td style="text-align: center;"><%= mail_to "admin@forcecommerce.com", 
-					'<i class="icon-flag" title="Email Enquiry"></i>'.html_safe, 
-					subject: "Enquiry - #{order.Name} "%>
+					'Enquire', 
+					subject: "Enquiry - #{order.Name} ",
+					title: "Email an Enquiry about your order"%>
 				</td>
 			</tr>
 			
