@@ -13,9 +13,8 @@ gem 'bootstrap-sass', '2.3.2.0'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 
-# database.com support
-gem 'databasedotcom'
-gem 'databasedotcom-rails'
+# Heroku1 force.rb support gem
+gem 'force'
 
 # support to encrypt users passwords
 gem 'bcrypt-ruby', '3.0.1'

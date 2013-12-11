@@ -55,7 +55,7 @@ class UsersController < ApplicationController
     # get summary of Order from Salesforce by calling utility class in config/initializers folder
     @customerOrderUtility = CustomerUtility::CustomerOrder.new
     @customerOrderSummary = @customerOrderUtility.getCustomerOrderSummary(@user.id)
-    @customerOrderList = @customerOrderSummary.paginate(page: params[:page], per_page: 5)
+    @customerOrderList = @customerOrderSummary.to_a.paginate(page: params[:page], per_page: 5)
   end
   
   # display page to edit logged in user

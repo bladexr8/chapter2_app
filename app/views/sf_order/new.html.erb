@@ -7,16 +7,16 @@
 			<p>Your Order Total is <strong><%= number_to_currency(@cart.total_price) %></strong></p>
 		
 			<%= label_tag "Customer_Name__c", "Name" %>
-			<%= text_field_tag "Customer_Name__c", @order.Customer_Name__c %>
+			<%= text_field_tag "Customer_Name__c", @Customer_Name__c %>
 			
 			<%= label_tag "Customer_Email__c", "Email" %>
-			<%= text_field_tag "Customer_Email__c", @order.Customer_Email__c %>
+			<%= text_field_tag "Customer_Email__c", @Customer_Email__c %>
 			
 			<%= label_tag "Customer_Address__c", "Address" %>
-			<%= text_area_tag "Customer_Address__c", @order.Customer_Address__c, rows: 3 %>
+			<%= text_area_tag "Customer_Address__c", @Customer_Address__c, rows: 3 %>
 			
 			<%= label_tag "Comments__c", "Comments" %>
-			<%= text_area_tag "Comments__c", @order.Comments__c, rows: 3 %>
+			<%= text_area_tag "Comments__c", @Comments__c, rows: 3 %>
 			
 			<%= submit_tag "Create Order", class: "btn btn-success" %>
 		<% end %>

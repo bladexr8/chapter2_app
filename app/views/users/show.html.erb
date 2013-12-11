@@ -36,8 +36,9 @@
 			<tr>
 				<td style="text-align: center;"><%= order.Name %></td>
 				<td style="text-align: center;"><%= number_to_currency(order.Grand_Total__c) %></td>
-				<td style="text-align: center;"><%= format_order_date(order.CreatedDate) %></td>
-				<td style="text-align: center;"><%= format_order_date(order.Planned_Delivery_Date__c) %></td>
+				<td style="text-align: center;"><%= format_order_date(Date.parse(order.CreatedDate)) %></td>
+				<td style="text-align: center;"><%= if !order.Planned_Delivery_Date__c.nil?  
+												format_order_date(Date.parse(order.Planned_Delivery_Date__c)) end %></td>
 				<% if order.Delivered__c == false %>
 					<td style="text-align: center;">No</td>
 				<% else %>

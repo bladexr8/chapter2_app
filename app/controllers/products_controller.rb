@@ -1,19 +1,27 @@
 class ProductsController < ApplicationController
-  include Databasedotcom::Rails::Controller
   
   # very important to get paging working for products list
   require 'will_paginate/array'
   
   # GET products
-  def index
-    @products = Order_Line_Item__c.all
-    # create pagination array to use in view
-    # Note that this code works because @products is of
-    # type Databasedotcom::Collection which is a subclass
-    # of Ruby "Array"
-    @products_list = @products.paginate(page: params[:page], per_page: 5)
-    # uncomment to print debug information
-    #print_product_list_debug
+  def index    
+    # using Heroku1 force.rb gem (https://github.com/heroku/force.rb)
+    logger.debug "***Using force.rb gem to get Product Information..."
+    
+    # initialize force.rb client
+    forceClient = Force.new
+    
+    # issue force.rb query to retrieve products
+    @products = forceClient.query("select Id, Item_Name__c, Capacity__c, Unit_Price__c,
+                                         Induction__c, Power_Output__c, Torque__c   
+                                         from Order_Line_Item__c 
+                                         order by Item_Name__c ASC")
+    
+    # convert products returned from force.rb to an array and set up bootstrap pagination
+    @products_list = @products.to_a.paginate(page: params[:page], per_page: 5)
+    
+    logger.debug "***Retrieved Product Information using force.rb gem"
+        
   end
   
   # GET a single product
